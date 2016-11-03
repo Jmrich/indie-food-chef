@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\CustomerAddress;
+use App\Dish;
+use App\Menu;
+use App\Order;
+use App\Section;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,9 +28,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+        Route::model('order', Order::class);
+        Route::model('section', Section::class);
+        Route::model('menu', Menu::class);
+        Route::model('dish', Dish::class);
+        Route::model('address', CustomerAddress::class);
     }
 
     /**

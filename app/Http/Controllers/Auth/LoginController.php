@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Chef;
+use App\Customer;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +39,43 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        $this->setRedirectPath($this->guard()->user());
+
+        return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended($this->redirectPath());
+    }
+
+    protected function getCustomerLoginUrl()
+    {
+        return '/';
+    }
+
+    protected function getChefLoginUrl()
+    {
+        return '/';
+    }
+
+    /**
+     * Set the redirect path based on user type
+     *
+     * @param User $user
+     */
+    protected function setRedirectPath($user)
+    {
+        $this->redirectTo = $user->userable_type == 'chef' ? '/' : '/';
     }
 }

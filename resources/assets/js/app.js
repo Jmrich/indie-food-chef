@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+require('./components/bootstrap');
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the body of the page. From here, you may begin adding components to
@@ -16,5 +18,17 @@ require('./bootstrap');
 Vue.component('example', require('./components/Example.vue'));
 
 const app = new Vue({
-    el: 'body'
+    el: '#app',
+
+    mixins:  [require('./ifc')],
+
+    computed: {
+        ifc() {
+            return window.Ifc;
+        }
+    },
+
+    methods: {
+
+    }
 });

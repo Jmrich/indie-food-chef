@@ -1,5 +1,10 @@
-
 window._ = require('lodash');
+window.URI = require('urijs');
+window.Promise = require('promise');
+window.Cookies = require('js-cookie');
+window.Decimal = require('decimal.js');
+window.moment = require('moment');
+window.accounting = require('accounting');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -18,6 +23,8 @@ require('bootstrap-sass');
 
 window.Vue = require('vue');
 require('vue-resource');
+window.Bus = new Vue();
+require('./filters');
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
@@ -26,7 +33,7 @@ require('vue-resource');
  */
 
 Vue.http.interceptors.push((request, next) => {
-    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+    request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
 
     next();
 });
@@ -37,9 +44,11 @@ Vue.http.interceptors.push((request, next) => {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from "laravel-echo"
+import Echo from "laravel-echo"
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '5a6e84f1731594d0ba52'
+});
+
+require('./forms/bootstrap');
