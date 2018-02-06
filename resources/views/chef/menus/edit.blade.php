@@ -5,9 +5,7 @@
             :user="user"
             :chef="chef"
             :menu="{{ $menu }}"
-            :dishes="{{ $dishes }}"
-            :sections="{{ $menu->sections }}"
-            :dates="{{ $dates }}" inline-template>
+            :dishes="{{ $dishes }}" inline-template>
         <div>
             <div class="alert alert-success col-md-6 col-md-offset-3" v-if="form.successful">
                 Menu successfully updated!
@@ -24,11 +22,11 @@
                     <form class="form-horizontal" role="form">
                         <!-- Add dish modal -->
                         @include('modals.chef.menu.add-dish')
-                        <div class="form-group" :class="{'has-error': form.errors.has('name')}">
+                        {{--<div class="form-group" :class="{'has-error': form.errors.has('name')}">
                             <label class="col-md-3 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" v-model="form.menu.name" :value="menu.name">
+                                <input type="text" class="form-control" name="name" v-model="menu.name">
 
                                 <span class="help-block" v-show="form.errors.has('name')">
                                     @{{ form.errors.get('name') }}
@@ -39,27 +37,16 @@
                             <label class="col-md-3 control-label">Description</label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" name="description" v-model="form.menu.description">@{{ menu.description }}</textarea>
+                                <textarea class="form-control" name="description" v-model="menu.description"></textarea>
 
                                 <span class="help-block" v-show="form.errors.has('description')">
                                     @{{ form.errors.get('description') }}
                                 </span>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Active?</label>
-                            <div class="col-md-6">
-                                <label class="radio-inline">
-                                    <input type="radio" value="0" name="is_active" v-model="form.menu.is_active" :checked="menu.is_active == 0" />No
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" value="1" name="is_active" v-model="form.menu.is_active" :checked="menu.is_active == 1" />Yes
-                                </label>
-                            </div>
-                        </div>
+                        </div>--}}
                         <div class="well">
                             <ul class="list-inline">
-                                <li>Dishes</li>
+                                <li>Add A Dish</li>
                                 <li>|</li>
                                 <li><i class="fa fa-plus-circle" aria-hidden="true" data-toggle="modal" data-target="#addDishModal"></i></li>
                             </ul>
@@ -97,27 +84,29 @@
                                 <th>Starting Quantity</th>
                                 <th>Quantity Remaining</th>
                             </tr>
-                            <tbody v-for="(key,dish) in form.dishes">
+                            <tbody v-for="(dish,key) in form.dishes">
                                 <tr>
                                     <td>@{{ dish.name }}</td>
                                     {{--<td class="col-sm-3">@{{ dish.description }}</td>--}}
                                     <td>
-                                        <select class="form-control" v-model="form.dishes[key].start_date" id="dates">
-                                            <option v-for="date in dates" :value="date" :selected="areDatesEqual(date,dish.pivot.start_date)">@{{ date }}</option>
-                                            {{--<option :value="dish.pivot.expires_at">@{{ dish.pivot.expires_at }}</option>--}}
-                                        </select>
+                                        <input type="text" v-model="form.dishes[key].start_date" class="form-control">
+                                        {{--<select class="form-control" v-model="form.dishes[key].start_date" id="dates">
+                                            <option v-for="date in dates" :value="date">@{{ date }}</option>
+                                            --}}{{--<option :value="dish.pivot.expires_at">@{{ dish.pivot.expires_at }}</option>--}}{{--
+                                        </select>--}}
                                     </td>
                                     <td>
-                                        <select class="form-control" v-model="form.dishes[key].end_date" id="dates">
+                                        <input type="text" v-model="form.dishes[key].end_date" class="form-control">
+                                        {{--<select class="form-control" v-model="form.dishes[key].end_date" id="dates">
                                             <option v-for="date in dates" :value="date" :selected="areDatesEqual(date,dish.pivot.end_date)">@{{ date }}</option>
-                                            {{--<option :value="dish.pivot.expires_at">@{{ dish.pivot.expires_at }}</option>--}}
-                                        </select>
+                                            --}}{{--<option :value="dish.pivot.expires_at">@{{ dish.pivot.expires_at }}</option>--}}{{--
+                                        </select>--}}
                                     </td>
                                     <td class="col-sm-2">
-                                        <input type="text" v-model="form.dishes[key].starting_quantity" class="form-control" :value="dish.pivot.starting_quantity">
+                                        <input type="text" v-model="form.dishes[key].starting_quantity" class="form-control">
                                     </td>
                                     <td class="col-sm-2">
-                                        <input type="text" v-model="form.dishes[key].quantity_remaining" class="form-control" :value="dish.pivot.quantity_remaining">
+                                        <input type="text" v-model="form.dishes[key].quantity_remaining" class="form-control">
                                     </td>
                                     <td>
                                         <i class="fa fa-times" aria-hidden="true" @click='removeDish(dish)'></i>

@@ -40,9 +40,9 @@ class Dish extends Model
 {
     use Reviewable, QueryScope;
 
-    protected $with = ['sides'];
+    //protected $with = ['sides'];
 
-    protected $fillable = ['name', 'description', 'price', 'extra_cost', 'is_archived'];
+    protected $fillable = ['name', 'description', 'price', 'extra_cost', 'is_archived', 'image_url'];
 
     /**
      * Get the dishes menu

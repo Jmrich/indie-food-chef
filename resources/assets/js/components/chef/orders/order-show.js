@@ -3,7 +3,7 @@ Vue.component('chef-order-show', {
 
     data() {
         return {
-            form: new SparkForm({
+            form: new IfcForm({
 
             })
         }

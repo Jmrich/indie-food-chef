@@ -2,17 +2,14 @@
     <dt>Dish:</dt>
     <dd>{{ $dish->name }}</dd>
     <dt>Description:</dt>
+    <dd></dd>
+    <dt>Quantity:</dt>
+    <dd>{{ $dish->pivot->quantity }}</dd>
     <dd>{{ $dish->description }}</dd>
     <dt>Price:</dt>
     <dd>${{ $dish->price/100 }}</dd>
     <dt>Notes:</dt>
-    <dd>
-        @if ($dish->main_dish_notes == '')
-            N/A
-        @else
-            {{ $dish->main_dish_notes }}
-        @endif
-    </dd>
+    <dd>{{ $dish->pivot->notes }}</dd>
 </dl>
 
 {{--

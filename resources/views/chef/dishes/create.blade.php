@@ -6,7 +6,7 @@
             <h3 class="panel-title">New Dish</h3>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" action="{{ route('dishes.store') }}" method="POST">
+            <form class="form-horizontal" action="{{ route('dishes.store') }}" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -48,17 +48,17 @@
                     </div>
                 </div>
 
-                {{--<div class="form-group{{ $errors->has('extra_cost') ? ' has-error' : '' }}">
-                    <label for="name" class="col-sm-3 control-label">Additional Cost</label>
+                <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                    <label for="name" class="col-sm-3 control-label">Dish Image</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="extra_cost" value="{{ $dish->extra_cost/100 }}">
-                        @if ($errors->has('extra_cost'))
+                        <input type="file" name="image" id="image">
+                        @if ($errors->has('image'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('extra_cost') }}</strong>
+                                <strong>{{ $errors->first('image') }}</strong>
                             </span>
                         @endif
                     </div>
-                </div>--}}
+                </div>
 
                 <div class="form-group">
                     <div class="col-sm-8 col-sm-offset-3">

@@ -78,7 +78,13 @@
                             <div class="panel-body" id="menu">
                                 <template v-if="menu.dishes.length > 0">
                                     <template v-for="(dish,dish_index) in menu.dishes">
-                                        <div class="">
+                                        <div class="col-md-3">
+                                            <!-- Dish Image Modal -->
+                                            @include('modals.chef.dish.full-image')
+
+                                            <img class="img-thumbnail" :src="dish.image_url" data-toggle="modal" :data-target="'#image-modal-' + menu.id + '-' + dish.id">
+                                        </div>
+                                        <div class="col-md-8">
                                             <div class="row" style="padding: 10px">
                                                 <div class="col-md-6 dish-name">
                                                     @{{ dish.name }}

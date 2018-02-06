@@ -12,11 +12,11 @@
                 <div id="pending" class="panel-collapse collapse in">
                     <table class="table">
                         <th>Customer</th><th>Order Date</th><th>Details</th>
-                        <tbody v-for="order in orders | filterBy pending">
+                        <tbody v-for="order in pendingOrders">
                             <tr>
                                 <td>@{{ order.customer.user.name }}</td>
                                 <td>@{{ order.created_at }}</td>
-                                <td><a href="/chef/orders/@{{ order.id }}">Details</a></td>
+                                <td><a :href="orderUrl(order)">Details</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -32,11 +32,11 @@
                 <div id="completed" class="panel-collapse collapse in">
                     <table class="table">
                         <th>Customer</th><th>Completed Date</th><th>Details</th>
-                        <tbody v-for="order in orders | filterBy complete">
+                        <tbody v-for="order in completedOrders">
                             <tr>
                                 <td>@{{ order.customer.user.name }}</td>
                                 <td>@{{ order.updated_at }}</td>
-                                <td><a href="/chef/orders/@{{ order.id }}">Details</a></td>
+                                <td><a :href="orderUrl(order)">Details</a></td>
                             </tr>
                         </tbody>
                     </table>

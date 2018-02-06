@@ -29,5 +29,17 @@ Vue.prototype.filters = {
         }
 
         return hours + ':' + minutes + ' ' + amPm;
+    },
+
+    dishDate(value) {
+        var date = value.split('-');
+
+        var year = date[0];
+
+        var month = date[1];
+
+        var day = date[2];
+
+        return [month,day,year].join('-');
     }
 };

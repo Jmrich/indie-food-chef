@@ -81,7 +81,7 @@ class MenuController extends Controller
     {
         $menu->load(['dishes']);
 
-        $start = Carbon::today();
+        /*$start = Carbon::today();
 
         $end = Carbon::today()->addDays(15);
 
@@ -89,11 +89,11 @@ class MenuController extends Controller
 
         $dates = collect(new DatePeriod($start, $interval, $end))->map(function ($date) {
             return $date->format("Y-m-d");
-        });
+        });*/
 
         $dishes = Dish::where('kitchen_id', getChef()->kitchen->id)->get();
 
-        return view('chef.menus.edit', compact('menu', 'dishes', 'dates'));
+        return view('chef.menus.edit', compact('menu', 'dishes'));
     }
 
     /**

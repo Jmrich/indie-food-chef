@@ -122,16 +122,17 @@ class OrderService
      * Complete the order
      *
      * @param Order $order
+     * @return bool
      */
     public function completeOrder($order)
     {
         // process payment
         $this->chargeService->processCapturedCharge($order->customer, $order->kitchen, $order);
 
-        // mark order as complete
-        $order->forceFill(['is_complete' => 1])->save();
-
         event(new OrderFulfilled($order));
+
+        // mark order as complete
+        return $order->forceFill(['is_complete' => 1])->save();
     }
 
     /**

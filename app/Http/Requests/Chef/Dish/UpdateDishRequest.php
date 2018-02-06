@@ -28,9 +28,10 @@ class UpdateDishRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
-            'price' => 'numeric',
+            'price' => 'required|numeric',
             'extra_cost' => 'numeric',
-            'is_archived' => 'required'
+            'is_archived' => 'required',
+            'dish_image' => 'sometimes|image'
         ];
     }
 }

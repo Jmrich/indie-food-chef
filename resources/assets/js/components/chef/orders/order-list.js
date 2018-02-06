@@ -14,10 +14,23 @@ Vue.component('order-list', {
     },
 
     computed: {
+        completedOrders() {
+            return this.orders.filter((order) => {
+                return order.is_complete == 1;
+            })
+        },
 
+        pendingOrders() {
+            return this.orders.filter((order) => {
+                return order.is_complete == 0;
+            })
+        }
     },
 
     methods: {
+        orderUrl(order) {
+            return `/chef/orders/${order.id}`
+        },
         complete(order) {
             return order.is_complete == 1;
         },

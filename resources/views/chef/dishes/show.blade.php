@@ -17,6 +17,7 @@
             <p><strong>Price</strong>: {{ $dish->price/100 }}</p>
             <p><strong>Additional Cost</strong>: {{ $dish->extra_cost }}</p>
             <p><strong>Archived</strong>: {{ $dish->is_archived ? 'Yes' : 'No' }}</p>
+            <p><strong>Image:</strong><img class="img-responsive" src="{{ asset($dish->image_url) }}"></p>
             <p><a href="{{ route('dishes.index') }}" class="btn btn-primary">Back</a> </p>
         </div>
     </div>

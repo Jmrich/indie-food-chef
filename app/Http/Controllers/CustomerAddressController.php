@@ -139,12 +139,16 @@ class CustomerAddressController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $address
+     * @param  CustomerAddress  $address
      * @return \Illuminate\Http\Response
      */
     public function destroy($address)
     {
-        \Auth::user()->userable->addresses()->detach($address);
+        if ($address->delete()) {
+            return response('Successfully deleted');
+        }
+
+        return response('An error occurred while deleting the address', 500);
     }
 
     protected function buildAddressString(array $data)

@@ -86,7 +86,12 @@ class DishController extends Controller
      */
     public function update(UpdateDishRequest $request, $dish)
     {
-        if ($this->dishService->update($dish, $request->all())) {
+        // if the user has updated the image lets validate the image
+        if ($request->hasFile('dish_image')) {
+            $request['image_url'] = $request->dish_image->store('public/dishes/images');
+        }
+
+        if ($this->dishService->update($dish, $request->all(), $request->hasFile('dish_image'))) {
             return redirect()->route('dishes.show', [$dish])->with('message', 'Successfully updated!');
         }
 

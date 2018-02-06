@@ -4,6 +4,7 @@ namespace App\Services\Chef;
 
 
 use App\Dish;
+use Illuminate\Support\Facades\Storage;
 
 class DishService
 {
@@ -25,11 +26,16 @@ class DishService
      *
      * @param Dish $dish
      * @param array $data
-     *
+     * @param bool $hasFile
      * @return Dish
      */
-    public function update($dish, array $data)
+    public function update($dish, array $data, bool $hasFile = false)
     {
+        if ($hasFile) {
+            // get storage url
+            $data['image_url'] = Storage::url($data['image_url']);
+        }
+
         $data['price'] = (int) bcmul($data['price'], 100);
 
         $dish->update($data);

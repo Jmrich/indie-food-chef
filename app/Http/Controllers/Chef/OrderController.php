@@ -107,14 +107,22 @@ class OrderController extends Controller
 
     public function complete($order)
     {
-        $this->orderService->completeOrder($order);
+        $result = \DB::transaction(function () use ($order) {
+            return $this->orderService->completeOrder($order);
+        });
 
-        return redirect()->route('chef.orders.show', [$order])->with('message', 'Order has been successfully completed');
+        if ($result) {
+            return redirect()->route('chef.orders.show', [$order])
+                ->with('message', 'Order has been successfully completed');
+        }
+
+        return redirect()->back()
+            ->with('message', 'Order was unable to be completed. Please contact customer support');
     }
 
     public function cancel($order)
     {
-        //$this->orderService->cancelOrder($order);
+        $this->orderService->cancelOrder($order);
 
         return redirect()->route('chef.orders.index')->with('message', 'Order has been successfully cancelled');
     }

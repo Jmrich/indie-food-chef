@@ -10,8 +10,8 @@
             </div>
             <div class="modal-body">
                 <select class="form-control" v-model="dishToAdd">
-                    <option value="" selected>Select a dish</option>
-                    <option v-for="dish in dishes | filterBy dishFilter" :value="dish">@{{ dish.name }}</option>
+                    <option value="">Select a dish</option>
+                    <option v-for="dish in dishesAvailableToAdd" :value="dish">@{{ dish.name }}</option>
                 </select>
             </div>
             <div class="modal-footer">

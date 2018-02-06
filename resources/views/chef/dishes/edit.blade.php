@@ -6,7 +6,7 @@
             <h3 class="panel-title">{{ $dish->name }}</h3>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" action="{{ route('dishes.update', [$dish]) }}" method="POST">
+            <form class="form-horizontal" action="{{ route('dishes.update', [$dish]) }}" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -49,17 +49,20 @@
                     </div>
                 </div>
 
-                {{--<div class="form-group{{ $errors->has('extra_cost') ? ' has-error' : '' }}">
-                    <label for="name" class="col-sm-3 control-label">Additional Cost</label>
+                <div class="form-group{{ $errors->has('dish_image') ? ' has-error' : '' }}">
+                    <label for="name" class="col-sm-3 control-label">Dish Image</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="extra_cost" value="{{ $dish->extra_cost/100 }}">
-                        @if ($errors->has('extra_cost'))
+                        <input type="file" name="dish_image" id="dish_image">
+                        <span class="help-block">
+                            <strong>Note: Only use this if you would like to replace the current image</strong>
+                        </span>
+                        @if ($errors->has('dish_image'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('extra_cost') }}</strong>
+                                <strong>{{ $errors->first('dish_image') }}</strong>
                             </span>
                         @endif
                     </div>
-                </div>--}}
+                </div>
 
                 <div class="form-group{{ $errors->has('is_archived') ? ' has-error' : '' }}">
                     <label for="is_archived" class="col-sm-3 control-label">Archived?</label>
